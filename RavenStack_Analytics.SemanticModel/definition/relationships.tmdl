@@ -1,0 +1,48 @@
+relationship 1ae41ce4-54dd-40a1-8626-f4395d5c5825
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_accounts.signup_date
+	toColumn: LocalDateTable_2d005e66-7472-4910-9e7a-d78c968b0159.Date
+
+relationship 537d9895-a75e-47ab-896b-ac390fc26eec
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_subscriptions.start_date
+	toColumn: LocalDateTable_2c7d51e5-b800-4c0b-88b2-c1fdbc8930e5.Date
+
+relationship 8c320db6-a0a4-4ab1-9030-0b397971964b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_subscriptions.end_date
+	toColumn: LocalDateTable_9367f5b8-f27f-4435-8cca-290a9987ddc0.Date
+
+relationship bbdffb6d-bd4c-4852-af8b-e486b8c499ff
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_support_tickets.closed_at
+	toColumn: LocalDateTable_0f22ac16-7668-4349-a4aa-8711a27b71b9.Date
+
+relationship AutoDetected_bbbf96e4-66bf-4830-820e-14fa219a0e48
+	fromColumn: fact_churn_events.account_id
+	toColumn: dim_accounts.account_id
+
+relationship AutoDetected_62005a85-aa24-4933-96f7-a9541f1aa40c
+	fromColumn: fact_subscriptions.account_id
+	toColumn: dim_accounts.account_id
+
+relationship AutoDetected_1ac602dd-8c7d-4776-b8bc-3208a01dce9c
+	fromColumn: fact_support_tickets.account_id
+	toColumn: dim_accounts.account_id
+
+relationship AutoDetected_58b36884-231d-4b49-9176-bfe5ef1618a2
+	fromColumn: fact_feature_usage.subscription_id
+	toColumn: fact_subscriptions.subscription_id
+
+relationship 567a0bed-ee4c-17ee-dd63-f1a74f7f41f8
+	fromColumn: fact_feature_usage.usage_date
+	toColumn: dim_date.Date
+
+relationship ba2dbc2d-5b41-b2bd-c716-f2b3a241fc0d
+	fromColumn: fact_support_tickets.submitted_at
+	toColumn: dim_date.Date
+
+relationship 09afec00-ec60-a1b2-abc5-c66529100a0b
+	fromColumn: fact_churn_events.churn_date
+	toColumn: dim_date.Date
+

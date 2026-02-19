@@ -1,0 +1,104 @@
+table fact_support_tickets
+	lineageTag: 931c35c7-b5ca-4762-a32c-87eebddcfdf1
+
+	column ticket_id
+		dataType: string
+		lineageTag: 78cbaf4f-83fa-4743-80bc-0c64fe08c770
+		summarizeBy: none
+		sourceColumn: ticket_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_id
+		dataType: string
+		lineageTag: f0e8c5c5-6882-44cc-ae56-a142815c5822
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column submitted_at
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f0d47107-9586-4b99-bbbb-cb1877b74ca4
+		summarizeBy: none
+		sourceColumn: submitted_at
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column closed_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 582986c6-64aa-41dc-b702-2350afd67775
+		summarizeBy: none
+		sourceColumn: closed_at
+
+		variation Variation
+			isDefault
+			relationship: bbdffb6d-bd4c-4852-af8b-e486b8c499ff
+			defaultHierarchy: LocalDateTable_0f22ac16-7668-4349-a4aa-8711a27b71b9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column resolution_time_hours
+		dataType: int64
+		formatString: 0
+		lineageTag: 6635c586-fbd4-4134-8132-ae7707bcdcca
+		summarizeBy: sum
+		sourceColumn: resolution_time_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column priority
+		dataType: string
+		lineageTag: 33f5c1fb-917d-42f9-80b9-f1a4c278d2ae
+		summarizeBy: none
+		sourceColumn: priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_response_time_minutes
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c058434-19cd-4781-b924-54a8a3d0dcb3
+		summarizeBy: sum
+		sourceColumn: first_response_time_minutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column satisfaction_score
+		dataType: int64
+		formatString: 0
+		lineageTag: f43d5cc4-ec16-4893-9a57-e6814edb3fc7
+		summarizeBy: sum
+		sourceColumn: satisfaction_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column escalation_flag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a4f81743-7072-4220-ac1f-eff352cec6b1
+		summarizeBy: none
+		sourceColumn: escalation_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_support_tickets = m
+		mode: import
+		source =
+				let
+				    Source = staging_processed,
+				    #"D:\Data Projects\RavenStack-Analysis\data\processed\_fact_support_tickets csv" = Source{[#"Folder Path"="D:\Data Projects\RavenStack-Analysis\data\processed\",Name="fact_support_tickets.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"D:\Data Projects\RavenStack-Analysis\data\processed\_fact_support_tickets csv",[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ticket_id", type text}, {"account_id", type text}, {"submitted_at", type date}, {"closed_at", type datetime}, {"resolution_time_hours", Int64.Type}, {"priority", type text}, {"first_response_time_minutes", Int64.Type}, {"satisfaction_score", Int64.Type}, {"escalation_flag", type logical}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

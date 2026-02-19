@@ -1,0 +1,155 @@
+table fact_subscriptions
+	lineageTag: 99d99665-1d15-462f-8a69-144e4a55c0af
+
+	column subscription_id
+		dataType: string
+		lineageTag: 3955a5db-63dd-4c71-b04c-53b5111cc522
+		summarizeBy: none
+		sourceColumn: subscription_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_id
+		dataType: string
+		lineageTag: 2eb72c92-806f-476b-a310-47b02ab51d75
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 68e4644d-c393-41cb-adc2-d412414e2334
+		summarizeBy: none
+		sourceColumn: start_date
+
+		variation Variation
+			isDefault
+			relationship: 537d9895-a75e-47ab-896b-ac390fc26eec
+			defaultHierarchy: LocalDateTable_2c7d51e5-b800-4c0b-88b2-c1fdbc8930e5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column end_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d2344d35-9a0e-4eb4-bc81-21d00deda163
+		summarizeBy: none
+		sourceColumn: end_date
+
+		variation Variation
+			isDefault
+			relationship: 8c320db6-a0a4-4ab1-9030-0b397971964b
+			defaultHierarchy: LocalDateTable_9367f5b8-f27f-4435-8cca-290a9987ddc0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column plan_tier
+		dataType: string
+		lineageTag: c7ba5099-ced8-444f-9fc7-613651ce5cc6
+		summarizeBy: none
+		sourceColumn: plan_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column seats
+		dataType: int64
+		formatString: 0
+		lineageTag: b46c21e7-639f-4d84-bccc-c4b5618b1614
+		summarizeBy: sum
+		sourceColumn: seats
+
+		annotation SummarizationSetBy = Automatic
+
+	column mrr_amount
+		dataType: int64
+		formatString: 0
+		lineageTag: 6244c697-f952-444a-bace-8fa2eee78933
+		summarizeBy: sum
+		sourceColumn: mrr_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column arr_amount
+		dataType: int64
+		formatString: 0
+		lineageTag: 3255530d-fc31-44c3-8ab1-f9cb7db28065
+		summarizeBy: sum
+		sourceColumn: arr_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_trial
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 7dd6da35-3bfb-4606-84ce-a0ce045583a4
+		summarizeBy: none
+		sourceColumn: is_trial
+
+		annotation SummarizationSetBy = Automatic
+
+	column upgrade_flag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e6e2bf8f-7488-4e95-89fc-6dbb8fd5c252
+		summarizeBy: none
+		sourceColumn: upgrade_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column downgrade_flag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a3473da0-27a7-419b-a52f-e29a3524d721
+		summarizeBy: none
+		sourceColumn: downgrade_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_flag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 117582bb-270a-48b0-be8c-5c14dba2a7f6
+		summarizeBy: none
+		sourceColumn: churn_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column billing_frequency
+		dataType: string
+		lineageTag: 3974e5c6-53ed-4317-bbb3-93db4fe00b55
+		summarizeBy: none
+		sourceColumn: billing_frequency
+
+		annotation SummarizationSetBy = Automatic
+
+	column auto_renew_flag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b60d4ee0-9873-46a0-b066-5bb4ed820644
+		summarizeBy: none
+		sourceColumn: auto_renew_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_subscriptions = m
+		mode: import
+		source =
+				let
+				    Source = staging_processed,
+				    #"D:\Data Projects\RavenStack-Analysis\data\processed\_fact_subscriptions csv" = Source{[#"Folder Path"="D:\Data Projects\RavenStack-Analysis\data\processed\",Name="fact_subscriptions.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"D:\Data Projects\RavenStack-Analysis\data\processed\_fact_subscriptions csv",[Delimiter=",", Columns=14, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"subscription_id", type text}, {"account_id", type text}, {"start_date", type date}, {"end_date", type date}, {"plan_tier", type text}, {"seats", Int64.Type}, {"mrr_amount", Int64.Type}, {"arr_amount", Int64.Type}, {"is_trial", type logical}, {"upgrade_flag", type logical}, {"downgrade_flag", type logical}, {"churn_flag", type logical}, {"billing_frequency", type text}, {"auto_renew_flag", type logical}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

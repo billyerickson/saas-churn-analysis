@@ -1,0 +1,28 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-ID
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+annotation PBI_QueryOrder = ["staging_processed","dim_accounts","fact_churn_events","fact_feature_usage","fact_subscriptions","fact_support_tickets"]
+
+ref table dim_accounts
+ref table DateTableTemplate_eab9aa77-da1b-4cee-9217-c45b0f66205b
+ref table LocalDateTable_2d005e66-7472-4910-9e7a-d78c968b0159
+ref table fact_churn_events
+ref table fact_feature_usage
+ref table fact_subscriptions
+ref table LocalDateTable_2c7d51e5-b800-4c0b-88b2-c1fdbc8930e5
+ref table LocalDateTable_9367f5b8-f27f-4435-8cca-290a9987ddc0
+ref table fact_support_tickets
+ref table LocalDateTable_0f22ac16-7668-4349-a4aa-8711a27b71b9
+ref table dim_date
+
+ref cultureInfo en-US
+

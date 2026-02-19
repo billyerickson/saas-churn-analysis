@@ -1,0 +1,98 @@
+table fact_churn_events
+	lineageTag: 914ee181-8f52-4f94-8dc9-ac86abefd757
+
+	column churn_event_id
+		dataType: string
+		lineageTag: 442c5de9-c29e-4c42-9dc0-97a71ca745e1
+		summarizeBy: none
+		sourceColumn: churn_event_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_id
+		dataType: string
+		lineageTag: c52e65b6-049c-4568-b5ff-eda6398a2b11
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7c91765c-a387-4b13-971d-1d766e80eced
+		summarizeBy: none
+		sourceColumn: churn_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column reason_code
+		dataType: string
+		lineageTag: 465251af-766f-406e-8574-52f1b408478f
+		summarizeBy: none
+		sourceColumn: reason_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column refund_amount_usd
+		dataType: int64
+		formatString: 0
+		lineageTag: 66774739-cddd-49aa-bbc2-f710f39c33a9
+		summarizeBy: sum
+		sourceColumn: refund_amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column preceding_upgrade_flag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 67043b2c-17d7-4747-ae79-6fcbfd1afa09
+		summarizeBy: none
+		sourceColumn: preceding_upgrade_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column preceding_downgrade_flag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 2436cb58-12f2-4b09-a944-14c9fc1eb7df
+		summarizeBy: none
+		sourceColumn: preceding_downgrade_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_reactivation
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ceaf9707-077c-41e1-8a9e-9229c6312333
+		summarizeBy: none
+		sourceColumn: is_reactivation
+
+		annotation SummarizationSetBy = Automatic
+
+	column feedback_text
+		dataType: string
+		lineageTag: 8c4e1c73-efef-49e6-8a49-9f722dcb9ea2
+		summarizeBy: none
+		sourceColumn: feedback_text
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_churn_events = m
+		mode: import
+		source =
+				let
+				    Source = staging_processed,
+				    #"D:\Data Projects\RavenStack-Analysis\data\processed\_fact_churn_events csv" = Source{[#"Folder Path"="D:\Data Projects\RavenStack-Analysis\data\processed\",Name="fact_churn_events.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"D:\Data Projects\RavenStack-Analysis\data\processed\_fact_churn_events csv",[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"churn_event_id", type text}, {"account_id", type text}, {"churn_date", type date}, {"reason_code", type text}, {"refund_amount_usd", Int64.Type}, {"preceding_upgrade_flag", type logical}, {"preceding_downgrade_flag", type logical}, {"is_reactivation", type logical}, {"feedback_text", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

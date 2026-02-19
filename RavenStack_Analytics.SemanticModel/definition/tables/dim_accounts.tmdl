@@ -1,0 +1,110 @@
+table dim_accounts
+	lineageTag: 7d6a0591-1e04-4225-8296-58c352a25869
+
+	column account_id
+		dataType: string
+		lineageTag: 6b36dc07-98dc-4be0-a9c4-a573ded084c0
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_name
+		dataType: string
+		lineageTag: cc2d674b-86db-48d2-9172-d11e14b9683a
+		summarizeBy: none
+		sourceColumn: account_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column industry
+		dataType: string
+		lineageTag: dfb40c0c-7192-4f87-8b1d-253ab452ae6c
+		summarizeBy: none
+		sourceColumn: industry
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 4f362997-5cf4-479a-95a7-7450be09a772
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7b7c53e3-4147-43bd-8613-977bb0b1cc38
+		summarizeBy: none
+		sourceColumn: signup_date
+
+		variation Variation
+			isDefault
+			relationship: 1ae41ce4-54dd-40a1-8626-f4395d5c5825
+			defaultHierarchy: LocalDateTable_2d005e66-7472-4910-9e7a-d78c968b0159.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column referral_source
+		dataType: string
+		lineageTag: bb3a0828-f3a7-454b-a8c6-895a6cd59e53
+		summarizeBy: none
+		sourceColumn: referral_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column plan_tier
+		dataType: string
+		lineageTag: d83a4a65-0bb2-404b-b55d-7d8620728e6c
+		summarizeBy: none
+		sourceColumn: plan_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column seats
+		dataType: int64
+		formatString: 0
+		lineageTag: 3adf5ea7-ee78-4a08-89cd-93fbcc1e19ec
+		summarizeBy: sum
+		sourceColumn: seats
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_trial
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ae5a007e-37e8-46eb-a166-b25614e1cdf3
+		summarizeBy: none
+		sourceColumn: is_trial
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_flag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 462177b4-8c16-4b94-99ce-b1e9aa22e31a
+		summarizeBy: none
+		sourceColumn: churn_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_accounts = m
+		mode: import
+		source =
+				let
+				    Source = staging_processed,
+				    #"D:\Data Projects\RavenStack-Analysis\data\processed\_dim_accounts csv" = Source{[#"Folder Path"="D:\Data Projects\RavenStack-Analysis\data\processed\",Name="dim_accounts.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"D:\Data Projects\RavenStack-Analysis\data\processed\_dim_accounts csv",[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"account_id", type text}, {"account_name", type text}, {"industry", type text}, {"country", type text}, {"signup_date", type date}, {"referral_source", type text}, {"plan_tier", type text}, {"seats", Int64.Type}, {"is_trial", type logical}, {"churn_flag", type logical}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

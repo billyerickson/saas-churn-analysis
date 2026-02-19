@@ -1,0 +1,11 @@
+expression staging_processed =
+		let
+		    Source = Folder.Files("D:\Data Projects\RavenStack-Analysis\data\processed")
+		in
+		    Source
+	lineageTag: 4c18cdc5-0dfa-4527-8f40-9e4aeeef30ff
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

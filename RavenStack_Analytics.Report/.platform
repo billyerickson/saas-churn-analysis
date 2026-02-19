@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "RavenStack_Analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "5948b05c-69ad-4b6b-9e31-5116dca50673"
+  }
+}

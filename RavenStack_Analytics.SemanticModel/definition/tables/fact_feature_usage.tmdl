@@ -1,0 +1,90 @@
+table fact_feature_usage
+	lineageTag: 73f4cd25-491c-451f-82d6-bf51713d54f6
+
+	column usage_id
+		dataType: string
+		lineageTag: d69b1fa2-7653-4eea-bda2-0efad1eef94d
+		summarizeBy: none
+		sourceColumn: usage_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column subscription_id
+		dataType: string
+		lineageTag: edde8950-9dea-45c2-a822-847bcbc494fc
+		summarizeBy: none
+		sourceColumn: subscription_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column usage_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f9163937-fbb4-46cb-aa06-48d21f05e7ca
+		summarizeBy: none
+		sourceColumn: usage_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column feature_name
+		dataType: string
+		lineageTag: a1909108-81fd-4993-9cd9-50e5b67def40
+		summarizeBy: none
+		sourceColumn: feature_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column usage_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 2215a87f-5665-4a18-9a57-df94a98d441d
+		summarizeBy: sum
+		sourceColumn: usage_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column usage_duration_secs
+		dataType: int64
+		formatString: 0
+		lineageTag: 17fda15e-3984-4eaf-bb33-6cc1139883d5
+		summarizeBy: sum
+		sourceColumn: usage_duration_secs
+
+		annotation SummarizationSetBy = Automatic
+
+	column error_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 69a45bf9-51fb-4d15-a265-a32f9a5668af
+		summarizeBy: sum
+		sourceColumn: error_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_beta_feature
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 1eaaff1b-b119-43a4-a4a4-eb38c2ca921f
+		summarizeBy: none
+		sourceColumn: is_beta_feature
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_feature_usage = m
+		mode: import
+		source =
+				let
+				    Source = staging_processed,
+				    #"D:\Data Projects\RavenStack-Analysis\data\processed\_fact_feature_usage csv" = Source{[#"Folder Path"="D:\Data Projects\RavenStack-Analysis\data\processed\",Name="fact_feature_usage.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"D:\Data Projects\RavenStack-Analysis\data\processed\_fact_feature_usage csv",[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"usage_id", type text}, {"subscription_id", type text}, {"usage_date", type date}, {"feature_name", type text}, {"usage_count", Int64.Type}, {"usage_duration_secs", Int64.Type}, {"error_count", Int64.Type}, {"is_beta_feature", type logical}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
