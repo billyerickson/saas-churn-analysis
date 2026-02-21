@@ -1,0 +1,34 @@
+{
+  "name": "McKinsey Corporate Strategy V2",
+  "dataColors": [
+    "#002147",
+    "#D1D1D1",
+    "#B91C1C",
+    "#1F2937",
+    "#4B5563",
+    "#9CA3AF",
+    "#E5E7EB",
+    "#374151"
+  ],
+  "background": "#F9FAFB",
+  "foreground": "#1F2937",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "show": false }],
+        "border": [{ "show": false }],
+        "title": [{
+          "show": true,
+          "fontFamily": "Segoe UI Semibold",
+          "fontSize": 12,
+          "color": { "solid": { "color": "#002147" } }
+        }],
+        "labels": [{
+          "show": true,
+          "color": { "solid": { "color": "#1F2937" } },
+          "fontSize": 9
+        }]
+      }
+    }
+  }
+}

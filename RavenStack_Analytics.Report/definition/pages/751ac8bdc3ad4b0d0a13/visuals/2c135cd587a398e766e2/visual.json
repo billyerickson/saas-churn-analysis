@@ -1,0 +1,121 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "2c135cd587a398e766e2",
+  "position": {
+    "x": 0,
+    "y": 369.85366315689771,
+    "z": 1000,
+    "height": 350.45574376055697,
+    "width": 640.13134007924612,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_churn_events"
+                    }
+                  },
+                  "Property": "reason_code"
+                }
+              },
+              "queryRef": "fact_churn_events.reason_code",
+              "nativeQueryRef": "reason_code",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Total Churn Events"
+                }
+              },
+              "queryRef": "key_meassures.Total Churn Events",
+              "nativeQueryRef": "Total Churn Events"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "key_meassures"
+                  }
+                },
+                "Property": "Total Churn Events"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 4,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fact_churn_events"
+                          }
+                        },
+                        "Property": "reason_code"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'features'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,13 +1,3 @@
-relationship 1ae41ce4-54dd-40a1-8626-f4395d5c5825
-	joinOnDateBehavior: datePartOnly
-	fromColumn: dim_accounts.signup_date
-	toColumn: LocalDateTable_2d005e66-7472-4910-9e7a-d78c968b0159.Date
-
-relationship 537d9895-a75e-47ab-896b-ac390fc26eec
-	joinOnDateBehavior: datePartOnly
-	fromColumn: fact_subscriptions.start_date
-	toColumn: LocalDateTable_2c7d51e5-b800-4c0b-88b2-c1fdbc8930e5.Date
-
 relationship 8c320db6-a0a4-4ab1-9030-0b397971964b
 	joinOnDateBehavior: datePartOnly
 	fromColumn: fact_subscriptions.end_date
@@ -30,10 +20,6 @@ relationship AutoDetected_1ac602dd-8c7d-4776-b8bc-3208a01dce9c
 	fromColumn: fact_support_tickets.account_id
 	toColumn: dim_accounts.account_id
 
-relationship AutoDetected_58b36884-231d-4b49-9176-bfe5ef1618a2
-	fromColumn: fact_feature_usage.subscription_id
-	toColumn: fact_subscriptions.subscription_id
-
 relationship 567a0bed-ee4c-17ee-dd63-f1a74f7f41f8
 	fromColumn: fact_feature_usage.usage_date
 	toColumn: dim_date.Date
@@ -44,5 +30,19 @@ relationship ba2dbc2d-5b41-b2bd-c716-f2b3a241fc0d
 
 relationship 09afec00-ec60-a1b2-abc5-c66529100a0b
 	fromColumn: fact_churn_events.churn_date
+	toColumn: dim_date.Date
+
+relationship 72be6735-2df2-f934-b8c7-4806df5c5134
+	isActive: false
+	fromColumn: fact_subscriptions.start_date
+	toColumn: dim_date.Date
+
+relationship 86e6d939-a9e6-0085-9363-09917e7c4f45
+	fromColumn: fact_feature_usage.subscription_id
+	toColumn: fact_subscriptions.subscription_id
+
+relationship d3a51628-f0a1-4ba7-152e-f4c256ce725d
+	isActive: false
+	fromColumn: dim_accounts.signup_date
 	toColumn: dim_date.Date
 

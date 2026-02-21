@@ -1,0 +1,89 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "0724a0615eede7969f81",
+  "position": {
+    "x": 10.857965702317056,
+    "y": 0,
+    "z": 0,
+    "height": 164.07592616834663,
+    "width": 247.32032988611073,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_accounts"
+                    }
+                  },
+                  "Property": "plan_tier"
+                }
+              },
+              "queryRef": "dim_accounts.plan_tier",
+              "nativeQueryRef": "plan_tier",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Churned Rate"
+                }
+              },
+              "queryRef": "key_meassures.Churned Rate",
+              "nativeQueryRef": "Churned Rate"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "key_meassures"
+                  }
+                },
+                "Property": "Churned Rate"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "labelPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'OutsideEnd'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

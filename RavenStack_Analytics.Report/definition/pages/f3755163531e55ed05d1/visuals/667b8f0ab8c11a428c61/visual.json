@@ -1,0 +1,90 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "667b8f0ab8c11a428c61",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 369.85366315689771,
+    "width": 450.03172999510633,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_accounts"
+                    }
+                  },
+                  "Property": "churn_flag"
+                }
+              },
+              "queryRef": "dim_accounts.churn_flag",
+              "nativeQueryRef": "churn_flag",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Average Session Duration"
+                }
+              },
+              "queryRef": "key_meassures.Average Session Duration",
+              "nativeQueryRef": "Average Session Duration"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "key_meassures"
+                  }
+                },
+                "Property": "Average Session Duration"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "labelPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'OutsideEnd'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

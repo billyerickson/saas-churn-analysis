@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "fed67bf1f1ef2101a168",
+  "position": {
+    "x": 640.13187300882851,
+    "y": 0,
+    "z": 1000,
+    "height": 359.66841546337827,
+    "width": 640.13187300882851,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_feature_usage"
+                    }
+                  },
+                  "Property": "feature_name"
+                }
+              },
+              "queryRef": "fact_feature_usage.feature_name",
+              "nativeQueryRef": "feature_name",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Total Interactions"
+                }
+              },
+              "queryRef": "key_meassures.Total Interactions",
+              "nativeQueryRef": "Total Interactions"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Feature Associated MRR"
+                }
+              },
+              "queryRef": "key_meassures.Feature Associated MRR",
+              "nativeQueryRef": "Feature Associated MRR"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Friction Rate %"
+                }
+              },
+              "queryRef": "key_meassures.Friction Rate %",
+              "nativeQueryRef": "Friction Rate %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Total Errors"
+                }
+              },
+              "queryRef": "key_meassures.Total Errors",
+              "nativeQueryRef": "Total Errors"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "key_meassures"
+                  }
+                },
+                "Property": "Feature Associated MRR"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

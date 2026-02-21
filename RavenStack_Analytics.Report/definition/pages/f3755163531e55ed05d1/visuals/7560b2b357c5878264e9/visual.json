@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "7560b2b357c5878264e9",
+  "position": {
+    "x": 460.37728700648807,
+    "y": 0,
+    "z": 2000,
+    "height": 720.30940691745468,
+    "width": 819.8853931520041
+  },
+  "visual": {
+    "visualType": "treemap",
+    "query": {
+      "queryState": {
+        "Group": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_accounts"
+                    }
+                  },
+                  "Property": "referral_source"
+                }
+              },
+              "queryRef": "dim_accounts.referral_source",
+              "nativeQueryRef": "referral_source",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Churned Accounts"
+                }
+              },
+              "queryRef": "key_meassures.Churned Accounts",
+              "nativeQueryRef": "Churned Accounts"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

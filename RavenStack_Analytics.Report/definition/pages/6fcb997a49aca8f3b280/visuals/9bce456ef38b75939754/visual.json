@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "9bce456ef38b75939754",
+  "position": {
+    "x": 9.6515250687262721,
+    "y": 0,
+    "z": 0,
+    "height": 247.32032988611073,
+    "width": 488.60845660426753,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_feature_usage"
+                    }
+                  },
+                  "Property": "feature_name"
+                }
+              },
+              "queryRef": "fact_feature_usage.feature_name",
+              "nativeQueryRef": "feature_name",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Total Interactions"
+                }
+              },
+              "queryRef": "key_meassures.Total Interactions",
+              "nativeQueryRef": "Total Interactions"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Zero Second Executions"
+                }
+              },
+              "queryRef": "key_meassures.Zero Second Executions",
+              "nativeQueryRef": "Zero Second Executions"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Friction Rate %"
+                }
+              },
+              "queryRef": "key_meassures.Friction Rate %",
+              "nativeQueryRef": "Friction Rate %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "key_meassures"
+                    }
+                  },
+                  "Property": "Total Errors"
+                }
+              },
+              "queryRef": "key_meassures.Total Errors",
+              "nativeQueryRef": "Total Errors"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "key_meassures"
+                  }
+                },
+                "Property": "Friction Rate %"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

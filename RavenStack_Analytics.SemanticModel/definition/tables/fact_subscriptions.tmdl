@@ -24,11 +24,6 @@ table fact_subscriptions
 		summarizeBy: none
 		sourceColumn: start_date
 
-		variation Variation
-			isDefault
-			relationship: 537d9895-a75e-47ab-896b-ac390fc26eec
-			defaultHierarchy: LocalDateTable_2c7d51e5-b800-4c0b-88b2-c1fdbc8930e5.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date

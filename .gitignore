@@ -1,3 +1,10 @@
+data/raw/*.csv
+
+# Ignore Python virtual environments & caches
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+
 **/.pbi/localSettings.json
 **/.pbi/cache.abf
 *.abf

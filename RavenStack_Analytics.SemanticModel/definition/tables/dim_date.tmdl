@@ -51,6 +51,14 @@ table dim_date
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [YearMonth]
+		sortByColumn: YearMonthKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonthKey = YEAR('dim_date'[Date]) * 100 + MONTH('dim_date'[Date])
+		formatString: 0
+		lineageTag: 79533035-3585-404b-9729-704f47471699
+		summarizeBy: count
 
 		annotation SummarizationSetBy = Automatic
 

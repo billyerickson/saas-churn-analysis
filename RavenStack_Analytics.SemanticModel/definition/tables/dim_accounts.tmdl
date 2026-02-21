@@ -40,11 +40,6 @@ table dim_accounts
 		summarizeBy: none
 		sourceColumn: signup_date
 
-		variation Variation
-			isDefault
-			relationship: 1ae41ce4-54dd-40a1-8626-f4395d5c5825
-			defaultHierarchy: LocalDateTable_2d005e66-7472-4910-9e7a-d78c968b0159.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date

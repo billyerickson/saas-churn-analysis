@@ -81,6 +81,15 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "key_meassures",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -93,14 +102,14 @@
     {
       "ordinal": 1,
       "scrollPosition": {
-        "x": 0,
+        "x": 450.28573172433039,
         "y": 0
       },
       "nodes": [
         {
           "location": {
-            "x": 440.45000076293945,
-            "y": 508.75
+            "x": 798.84285790579679,
+            "y": 213.67857524326871
           },
           "nodeIndex": "fact_support_tickets",
           "nodeLineageTag": "931c35c7-b5ca-4762-a32c-87eebddcfdf1",
@@ -113,36 +122,34 @@
         },
         {
           "location": {
-            "x": 453.70000076293945,
-            "y": 15
+            "x": 1077.8833173266391,
+            "y": 248.15677182184362
           },
           "nodeIndex": "fact_subscriptions",
           "nodeLineageTag": "99d99665-1d15-462f-8a69-144e4a55c0af",
           "size": {
-            "height": 176,
+            "height": 300,
             "width": 234
           },
-          "zIndex": 6,
-          "expandedHeight": 300
+          "zIndex": 6
         },
         {
           "location": {
-            "x": 81.700000762939453,
-            "y": 36.25
+            "x": 1370.4499912261963,
+            "y": 398.96428380693709
           },
           "nodeIndex": "fact_feature_usage",
           "nodeLineageTag": "73f4cd25-491c-451f-82d6-bf51713d54f6",
           "size": {
-            "height": 128,
+            "height": 272,
             "width": 234
           },
-          "zIndex": 2,
-          "expandedHeight": 272
+          "zIndex": 2
         },
         {
           "location": {
-            "x": 578.20000076293945,
-            "y": 294.5
+            "x": 1379.2714293343679,
+            "y": 210.21428571428572
           },
           "nodeIndex": "fact_churn_events",
           "nodeLineageTag": "914ee181-8f52-4f94-8dc9-ac86abefd757",
@@ -155,8 +162,8 @@
         },
         {
           "location": {
-            "x": 806.20000076293945,
-            "y": 124
+            "x": 1079.284492128093,
+            "y": 0
           },
           "nodeIndex": "dim_accounts",
           "nodeLineageTag": "7d6a0591-1e04-4225-8296-58c352a25869",
@@ -164,13 +171,13 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 4,
+          "zIndex": 5,
           "expandedHeight": 300
         },
         {
           "location": {
-            "x": 113.25000095367432,
-            "y": 256.25
+            "x": 452.37990429709293,
+            "y": 66.720663204215953
           },
           "nodeIndex": "dim_date",
           "nodeLineageTag": "9f586ed0-4cf5-46c9-87e9-583a24961673",
@@ -178,11 +185,11 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 4
         }
       ],
       "name": "Layout 1",
-      "zoomValue": 80,
+      "zoomValue": 70,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

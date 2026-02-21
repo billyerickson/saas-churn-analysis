@@ -1,0 +1,206 @@
+table key_meassures
+	lineageTag: 1c8125a9-250c-4261-95ed-4b48ddb00a05
+
+	measure Total_MRR = SUM(fact_subscriptions[mrr_amount])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: d275b538-a0fc-42bb-85f5-42188aa243bb
+
+	measure Organic_MRR =
+			CALCULATE(
+			    [Total_MRR],
+			    dim_accounts[referral_source] = "organic"
+			)
+		formatString: 0
+		lineageTag: 82436042-22d2-4b65-b469-716b3cd834f5
+
+	measure Organic_Share_pct =
+			DIVIDE(
+			    [Organic_MRR],
+			    [Total_MRR],
+			    0
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 11748ab3-7ad2-499b-8559-399b5e42c6dc
+
+	measure Churned_MRR =
+			CALCULATE(
+			    [Total_MRR],
+			    dim_accounts[churn_flag] = TRUE()
+			)
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: e2a7099c-e8ca-45b4-b239-6399c47dc219
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Cumulative_Churned_MRR =
+			
+			CALCULATE(
+			    [Churned_MRR],
+			    FILTER(
+			        ALL('dim_date'),
+			        'dim_date'[Date] <= MAX('dim_date'[Date])
+			    )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: d162975f-d778-4793-aab7-eedeb552ca14
+
+	measure 'Total Accounts' = ```
+			CALCULATE(
+			    DISTINCTCOUNT(dim_accounts[account_id]), 
+			    USERELATIONSHIP(dim_accounts[signup_date], dim_date[Date])
+			    )
+			```
+		formatString: 0
+		lineageTag: 8268d6ac-a635-452b-9ecc-21ff67937f47
+
+	measure 'Paid Accounts' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fact_subscriptions[account_id]),
+			    fact_subscriptions[mrr_amount] > 0
+			)
+		formatString: 0
+		lineageTag: 44b32886-e8c3-410f-a50b-d6f6e40e9ea4
+
+	measure 'Conversion Rate %' = ```
+			
+			DIVIDE(
+			    [Paid Accounts], 
+			    [Total Accounts], 
+			    0
+			)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 405d903b-d4cf-47c4-82fd-337064cf8a4e
+
+	measure 'Total Interactions' = COUNTROWS('fact_feature_usage')
+		formatString: 0
+		lineageTag: 1da22f74-57af-480b-9316-64753606232d
+
+	measure 'Zero Second Executions' =
+			
+			CALCULATE(
+			    [Total Interactions],
+			    'fact_feature_usage'[usage_duration_secs] = 0
+			)
+		formatString: 0
+		lineageTag: c466dbad-5327-46ec-b104-3d7876266134
+
+	measure 'Friction Rate %' =
+			
+			DIVIDE(
+			    [Zero Second Executions],
+			    [Total Interactions],
+			    0
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: fc4b1a78-8110-458d-8c84-6474187940d6
+
+	measure 'Total Errors' = SUM('fact_feature_usage'[error_count])
+		formatString: 0
+		lineageTag: f072d8b7-9bd5-4db2-a9f1-223faa71abbe
+
+	measure 'Feature Associated MRR' = ```
+			
+			CALCULATE(
+			    [Total_MRR],
+			    CROSSFILTER(
+			        'fact_feature_usage'[subscription_id], 
+			        'fact_subscriptions'[subscription_id], 
+			        BOTH
+			    ),
+			    USERELATIONSHIP(
+			        'fact_feature_usage'[subscription_id], 
+			        'fact_subscriptions'[subscription_id]
+			    )
+			)
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: b907e1f9-45f6-457c-8875-9518c298da62
+
+	measure ARPA =
+			DIVIDE(
+			    [Total_MRR],
+			    [Total Accounts],
+			    0
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: bb426c84-a65c-4000-b0e0-ad2d37ac001e
+
+	measure 'Avg Seats per Account' = AVERAGE(dim_accounts[seats])
+		lineageTag: ce2f2cbd-d309-4003-9c6d-a3b1b1cfea70
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Churned Accounts' = ```
+			CALCULATE(
+			    [Total Accounts], 
+			    dim_accounts[churn_flag] = TRUE()
+			)
+			```
+		formatString: 0
+		lineageTag: 7fda8f09-303f-451f-9a7c-7001a87f35d4
+
+	measure 'Churned Rate' = ```
+			DIVIDE(
+			    [Churned Accounts], 
+			    [Total Accounts],
+			    0
+			)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: fcddf959-3e71-48d8-926d-eb7a44844863
+
+	measure 'Total Churn Events' = COUNT(fact_churn_events[churn_event_id])
+		formatString: 0
+		lineageTag: 3ac4ea5b-5f20-40c0-a21f-7bfa0afd5a67
+
+	measure 'Average Usage Count' = ```
+			AVERAGE(fact_feature_usage[usage_count])
+			 
+			```
+		formatString: 0.00000
+		lineageTag: cf865eac-6fda-4f19-b33e-3cdb4aa5c859
+
+	measure 'Average Error Count' = AVERAGE(fact_feature_usage[error_count])
+		lineageTag: 9511cf71-99d5-4187-9a23-9be4221184b4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Resolution Time' = AVERAGE(fact_support_tickets[resolution_time_hours])
+		lineageTag: 5cbd1da9-1948-485b-82b0-f3d423efd540
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Measure
+		lineageTag: 153f797a-fe7d-421a-809d-8712510047f0
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Average CSAT' = AVERAGE(fact_support_tickets[satisfaction_score])
+		lineageTag: ef0dac6d-e9bf-4260-9810-30465d6dc136
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Session Duration' = AVERAGE(fact_feature_usage[usage_duration_secs])
+		formatString: 0.000
+		lineageTag: ed0a640c-07f7-4e5d-bbee-da3256995697
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 0d841b91-de5b-4c5d-a6d6-22f8fa5ca7e9
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition key_meassures = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 673def1730d54771ae37e584edd9573f
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+
